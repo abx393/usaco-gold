@@ -1,3 +1,6 @@
+//2017 US Open Contest
+//Problem 3. Modern Art
+
 import java.io.*;
 import java.util.*;
 
