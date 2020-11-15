@@ -11,16 +11,16 @@ public class sleepy {
 		
 		br.close();
 		int i = n-1;
-		while (i>0 && c.get(i-1)<c.get(i)) i--;
+		while (i > 0 && c.get(i-1) < c.get(i)) i--;
 		
 		//System.out.println(1024&-1024);
 		
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("sleepy.out")));
 		System.out.println(i);
-		while (i>0) {
+		while (i > 0) {
 			int j=bSearch(c, c.get(0), i, n-1);
 			System.out.print(j-1);
-			if (i>1) System.out.print(" ");
+			if (i > 1) System.out.print(" ");
 			int tmp = c.remove(0);
 			c.add(j-1, tmp);
 			System.out.println(c);
@@ -28,17 +28,18 @@ public class sleepy {
 		}
 		out.close();
 	}
+
 	public static int bSearch(LinkedList<Integer> a, int num, int c, int d){
 		int x = c;
 		int y = d;
 		int mid = 0;
-		while (x<=y){
-			mid = (x+y)/2;
+		while (x <= y) {
+			mid = (x+y) / 2;
 			if (a.get(mid)>num) y = mid-1;
 			else if (a.get(mid)<num) x = mid+1;
 			else return mid;
 		}
-		if (a.get(mid)<num) return mid+1;
+		if (a.get(mid) < num) return mid+1;
 		else return mid;
 	}
 }

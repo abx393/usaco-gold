@@ -67,9 +67,7 @@ public class atlarge {
 				}
 			}
 		}
-		//System.out.println(Arrays.toString(ldist));
-		//System.out.println(Arrays.toString(rdist));
-		
+
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("atlarge.out")));
 		out.println(count);
 		out.close();
