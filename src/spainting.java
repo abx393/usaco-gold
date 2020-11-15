@@ -3,6 +3,7 @@ import java.io.*;
 
 public class spainting {
 	public static long MOD = 1000000007;
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader("spainting.in"));
 		StringTokenizer st = new StringTokenizer(br.readLine());
@@ -19,11 +20,12 @@ public class spainting {
 			ps[i] = (ps[i-1] + dp[i] + MOD) % MOD;
 		}
 
-		for (int i=k; i<=n; i++){
+		for (int i=k; i<=n; i++) {
 			dp[i] = (ps[i-1] - ps[i-k] + MOD) % MOD;
 			dp[i] = (dp[i] * (m-1) + MOD) % MOD;
 			ps[i] = (ps[i-1] + dp[i] + MOD) % MOD;
 		}
+
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("spainting.out")));
 		out.println((pow(m, n) - dp[n] + MOD) % MOD);
 		out.close();

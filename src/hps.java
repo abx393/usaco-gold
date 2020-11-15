@@ -25,8 +25,8 @@ public class hps {
 					} else {
 						int y = (x+1) % 3;
 						int z = (x+2) % 3;
-						dp[i][j][x] = max(dp[i-1][j][x], dp[i-1][j-1][y], dp[i-1][j-1][z]) 
-                          + (x==map.get(moves[i-1]) ? 1 : 0);
+						dp[i][j][x] = max(dp[i-1][j][x], dp[i-1][j-1][y], dp[i-1][j-1][z]) +
+                                      (x == map.get(moves[i-1]) ? 1 : 0);
 					}
 				}
 			}

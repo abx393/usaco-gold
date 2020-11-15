@@ -21,10 +21,10 @@ public class radio {
 		int[][] dp = new int[n+1][m+1];
 		for (int[] i : dp) Arrays.fill(i, Integer.MAX_VALUE);
 		dp[0][0] = 0;
-		for (int i=0; i<=n; i++){
+		for (int i=0; i<=n; i++) {
 			x2 = a2;
 			y2 = b2;
-			for (int j=0; j<=m; j++){
+			for (int j=0; j<=m; j++) {
 				int energy = sqdist(x1, y1, x2, y2);
 				if (i > 0 && j > 0) dp[i][j] = Math.min(dp[i][j], dp[i-1][j-1] + energy);
 				if (i > 0) dp[i][j] = Math.min(dp[i][j], dp[i-1][j] + energy);
@@ -49,7 +49,7 @@ public class radio {
 		out.close();
 	}
 
-	public static int sqdist(int a, int b, int c, int d){
+	public static int sqdist(int a, int b, int c, int d) {
 		return (c-a) * (c-a) + (b-d) * (b-d);
 	}
 }

@@ -5,7 +5,7 @@ public class split {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader("split.in"));
 		int n = Integer.parseInt(br.readLine());
-		X[] pairX= new X[n];
+		X[] pairX = new X[n];
 		Y[] pairY = new Y[n];
 		StringTokenizer st;
 		
@@ -30,7 +30,7 @@ public class split {
 		
 		long min = Long.MAX_VALUE;
 		long max = 0;
-		for (int i = n - 1; i >= 0; i--) {
+		for (int i = n-1; i >= 0; i--) {
 			min = Math.min(min, pairX[i].y);
 			max = Math.max(max, pairX[i].y);
 			ymin2[i] = min;

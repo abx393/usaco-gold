@@ -7,16 +7,17 @@ public class taming {
 		int n = Integer.parseInt(br.readLine());
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int[] a = new int[n];
-		for (int i=0; i<n; i++){
+		for (int i=0; i<n; i++) {
 			a[i] = Integer.parseInt(st.nextToken());
 		}
 		br.close();
+
 		int[][][] dp = new int[n][n][n];
 		for (int[][] arr : dp) {
 			for (int[] arr2 : arr) Arrays.fill(arr2, Integer.MAX_VALUE);
 		}
 		
-		for (int i=0; i<n; i++){
+		for (int i=0; i<n; i++) {
 			if (a[i] == 0) dp[i][i][0] = 0;
 			else dp[i][i][0] = 1;
 			for (int j=i+1; j<n; j++) {
@@ -36,6 +37,5 @@ public class taming {
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("taming.out")));
 		for (int i=0; i<n; i++) out.println(dp[0][n-1][i]);
 		out.close();
-		
 	}
 }

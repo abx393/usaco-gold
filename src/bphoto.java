@@ -6,20 +6,21 @@ public class bphoto {
 		BufferedReader br = new BufferedReader(new FileReader("bphoto.in"));
 		int n = Integer.parseInt(br.readLine());
 		State[] cows = new State[n];
-		for (int i=0; i<n; i++){
+		for (int i=0; i<n; i++) {
 			cows[i] = new State(i, Integer.parseInt(br.readLine()));
 		}
 		br.close();
+
 		Arrays.sort(cows);
 		BIT bit = new BIT(n);
 		int res = 0;
 		
-		int left=0, right=0;
-		for (int i=0; i<n; i++){
+		int left = 0, right = 0;
+		for (int i=0; i<n; i++) {
 			State s = cows[i];
 			left = bit.query(s.index-1);
 			right = i - left;
-			res += (2*Math.min(left, right)<Math.max(left, right)) ? 1:0;
+			res += (2 * Math.min(left, right) < Math.max(left, right)) ? 1 : 0;
 			bit.update(s.index, 1);
 		}
 		
@@ -28,31 +29,38 @@ public class bphoto {
 		out.close();
 	}
 }
-class State implements Comparable<State>{
+
+class State implements Comparable<State> {
 	public int index, val;
-	public State(int a, int b){
+	public State(int a, int b) {
 		index = a;
 		val = b;
 	}
-	public int compareTo(State that){
+
+	public int compareTo(State that) {
 		return that.val-this.val;
 	}
 }
+
+// Binary Indexed Tree
 class BIT {
 	public int[] sum;
 	public int n;
+
 	public BIT(int n) {
 		sum = new int[n+1];
 		this.n = n;
 	}
-	public void update(int index, int val){
+
+	public void update(int index, int val) {
 		index++;
-		while (index<=n){
+		while (index<=n) {
 			sum[index] += val;
 			index += index & -index;
 		}
 	}
-	public int query(int index){
+
+	public int query(int index) {
 		index++;
 		int res = 0;
 		while (index>0) {

@@ -17,13 +17,13 @@ public class hps2 {
 		br.close();
 		
 		int[][][] dp = new int[n+1][k+1][3];
-		for (int i=1; i<=n; i++){
+		for (int i=1; i<=n; i++) {
 			for (int j=0; j<=k; j++) {
-				for (int last=0; last<3; last++){
-					int x = (last+1)%3;
-					int y = (x+1)%3;
-					if (j>0) dp[i][j][last] = Math.max(dp[i-1][j-1][x], dp[i-1][j-1][y]) + (last==moves[i-1] ? 1:0);
-					dp[i][j][last] = Math.max(dp[i][j][last], dp[i-1][j][last]+(last==moves[i-1] ? 1:0));
+				for (int last=0; last<3; last++) {
+					int x = (last + 1) % 3;
+					int y = (x+1) % 3;
+					if (j > 0) dp[i][j][last] = Math.max(dp[i-1][j-1][x], dp[i-1][j-1][y]) + (last == moves[i-1] ? 1 : 0);
+					dp[i][j][last] = Math.max(dp[i][j][last], dp[i-1][j][last] + (last == moves[i-1] ? 1 : 0));
 				}
 			}
 		}

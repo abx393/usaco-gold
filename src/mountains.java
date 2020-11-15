@@ -35,7 +35,7 @@ public class mountains {
 	}
 }
 
-class Pare implements Comparable<Pare>{
+class Pare implements Comparable<Pare> {
 	public int low, up;
 
 	public Pare(int a, int b) {

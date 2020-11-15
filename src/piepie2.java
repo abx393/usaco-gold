@@ -31,13 +31,14 @@ public class piepie2 {
 		Arrays.sort(sb);
 
 		LinkedList<Integer> q = new LinkedList<Integer>();
-		for (int i=0; i<2*n; i++){
+		for (int i=0; i<2*n; i++) {
 			if (dist[i]==1) q.add(i);
 		}
-		while (!q.isEmpty()){
+
+		while (!q.isEmpty()) {
 			int curr = q.removeFirst();
-			if (curr<n){
-				//search sb for gifts valued between b[curr]-d and b[curr] and add to queue
+			if (curr<n) {
+				// search sb for gifts valued between b[curr]-d and b[curr] and add to queue
 				int low = Arrays.binarySearch(sb, new item(b[curr]-d, 0));
 				if (low<0) low = -(low+1);
 				int hi = Arrays.binarySearch(sb, new item(b[curr], 0));
@@ -53,30 +54,31 @@ public class piepie2 {
 				}
 			}
 			else {
-				//search se for gifts valued between e[curr]-d and e[curr] and add to queue
-				int low = Arrays.binarySearch(se, new item(e[curr]-d, 0));
-				if (low<0) low = -(low+1);
+				// search se for gifts valued between e[curr]-d and e[curr] and add to queue
+				int low = Arrays.binarySearch(se, new item(e[curr] - d, 0));
+				if (low < 0) low = -(low+1);
 				int hi = Arrays.binarySearch(se, new item(e[curr], 0));
-				if (hi<0) hi = -(hi+1);
-				if (hi>=n) hi--;
+				if (hi < 0) hi = -(hi+1);
+				if (hi >= n) hi--;
 				if (se[hi].val>e[curr]) hi--;
 				
-				for (int i=low; i<=hi; i++){
+				for (int i=low; i<=hi; i++) {
 					if (dist[se[i].idx]!=0) continue;
-					dist[se[i].idx] = dist[curr]+1;
+					dist[se[i].idx] = dist[curr] + 1;
 					q.add(se[i].idx);
 				}
 			}
 		}
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("piepie.out")));
-		for (int i=0; i<n; i++){
+		for (int i=0; i<n; i++) {
 			if (dist[i]==0) out.println(-1);
 			else out.println(dist[i]);
 		}
 		out.close();
 	}
 }
-class item implements Comparable<item>{
+
+class item implements Comparable<item> {
 	public int val, idx;
 	public item(int a, int b){
 		val = a;
