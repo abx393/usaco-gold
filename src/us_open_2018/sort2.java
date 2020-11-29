@@ -26,14 +26,16 @@ public class sort2 {
 		out.println(res);
 		out.close();
 	}
-	public static void inc(int[] bit, int idx){
+
+	public static void inc(int[] bit, int idx) {
 		idx++;
 		while (idx<bit.length){
 			bit[idx]++;
 			idx += idx & -idx;
 		}
 	}
-	public static int sum(int[] bit, int idx){
+
+	public static int sum(int[] bit, int idx) {
 		idx++;
 		int res = 0;
 		while (idx>0){
@@ -43,16 +45,17 @@ public class sort2 {
 		return res;
 	}
 }
+
 class elem implements Comparable<elem> {
 	public int val, idx;
-	public elem(int a, int b){
+	public elem(int a, int b) {
 		this.val = a;
 		this.idx = b;
 	}
-	public int compareTo(elem that){
+	public int compareTo(elem that) {
 		return this.val-that.val;
 	}
-	public String toString(){
+	public String toString() {
 		return val + " " + idx;
 	}
 }

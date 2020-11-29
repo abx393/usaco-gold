@@ -15,8 +15,8 @@ public class sleepy2 {
 		int i = n;
 		do {
 			i--;
-			bit.inc(c[i]-1);
-		}while (i>0 && c[i-1]<c[i]);
+			bit.inc(c[i] - 1);
+		} while (i > 0 && c[i-1] < c[i]);
 		out.println(i);
 		
 		for (int j=0; j<i; j++) {
@@ -29,19 +29,20 @@ public class sleepy2 {
 		out.close();
 	}
 }
+
 class BTree {
 	public int[] arr;
-	public BTree(int n){
+	public BTree(int n) {
 		arr = new int[n+1];
 	}
-	public void inc(int i){
+	public void inc(int i) {
 		i++;
 		while (i<arr.length){
 			arr[i]++;
 			i += i & -i;
 		}
 	}
-	public int sum(int i){
+	public int sum(int i) {
 		i++;
 		int ret = 0;
 		while (i>0){
