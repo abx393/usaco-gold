@@ -10,7 +10,7 @@ contests.
 |Feb 2016 | Circular Barn Revisited | [cbarn2.java](src/feb_2016/cbarn2.java) |
 |Feb 2016 | Fenced In | [fencedin.java](src/feb_2016/fencedin.java) |
 |US Open 2016 | Splitting the Field| [split.java](src/us_open_2016/split.java) |
-|US Open 2016 | 248 | [248.java](src/us_open_2016/248.java) |
+|US Open 2016 | 248 | [twofoureight.java](src/us_open_2016/twofoureight.java) |
 |Dec 2016 | Cow Checklist | [checklist.java](src/dec_2016/checklist.java) |
 |Jan 2017 | Balanced Photo | [bphoto.java](src/jan_2017/bphoto.java) |
 |Jan 2017 | Cow Navigation | [cownav.java](src/jan_2017/cownav.java) |
