@@ -22,10 +22,10 @@ public class twofoureight {
 		out.close();
 	}
 
-	public static int solve(int in, int out){
+	public static int solve(int in, int out) {
 		if (in == out) return nums[in];
 		if (dp[in][out] != -1) return dp[in][out];
-		for (int i=in; i<out; i++){
+		for (int i=in; i<out; i++) {
 			int x = solve(in, i);
 			int y = solve(i+1, out);
 			if (x == 0 || y == 0) continue;
