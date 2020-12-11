@@ -17,7 +17,7 @@ public class cbarn2 {
 		for (int i=0; i<n; i++) orig[i] = a[i];
 		
 		long res = Long.MAX_VALUE;
-		for (int start = 0; start<n; start++) { 
+		for (int start = 0; start < n; start++) { 
 			for (int i=0; i<n; i++) Arrays.fill(dp[i], Long.MAX_VALUE);
 			for (int i=0; i<n; i++) a[i] = orig[(start+i)%n];
 			

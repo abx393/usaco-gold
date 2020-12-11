@@ -13,8 +13,6 @@ public class sleepy {
 		int i = n-1;
 		while (i > 0 && c.get(i-1) < c.get(i)) i--;
 		
-		//System.out.println(1024&-1024);
-		
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("sleepy.out")));
 		System.out.println(i);
 		while (i > 0) {
