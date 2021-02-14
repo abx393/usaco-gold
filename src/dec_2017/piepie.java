@@ -4,107 +4,88 @@ import java.util.*;
 public class piepie {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader("piepie.in"));
-		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("piepie.out")));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int n = Integer.parseInt(st.nextToken());
 		int d = Integer.parseInt(st.nextToken());
-		int[] b = new int[n]; 
-		Stat[] bsort = new Stat[n];
-		int[] e = new int[n]; 
-		Stat[] esort = new Stat[n];
-		
-		for (int i = 0; i < 2 * n; i++) {
+
+		int[] b = new int[2*n];
+		int[] e = new int[2*n];
+		Item[] sb = new Item[n];
+		Item[] se = new Item[n];
+		int[] dist = new int[2*n];
+
+		for (int i=0; i<2*n; i++) {
 			st = new StringTokenizer(br.readLine());
-			if (i >= n) {
-				b[i - n] = Integer.parseInt(st.nextToken());
-				esort[i - n] = new Stat(i, Integer.parseInt(st.nextToken()));	
-			}
-			
-			else {
-				bsort[i] = new Stat(i, Integer.parseInt(st.nextToken()));
-				e[i] = Integer.parseInt(st.nextToken());
-			}
+			int x = Integer.parseInt(st.nextToken());
+			int y = Integer.parseInt(st.nextToken());
+			b[i] = x;
+			e[i] = y;
+			if (i<n) se[i] = new Item(y, i);
+			else sb[i-n] = new Item(x, i);
+
+			if (i<n && y==0) dist[i] = 1;
+			if (i>=n && x==0) dist[i] = 1;
+		}
+		br.close();
+		Arrays.sort(se);
+		Arrays.sort(sb);
+
+		LinkedList<Integer> q = new LinkedList<Integer>();
+		for (int i=0; i<2*n; i++) {
+			if (dist[i]==1) q.add(i);
 		}
 
-		br.close();
-		Arrays.sort(esort);
-		Arrays.sort(bsort);
-		
-		LinkedList<Integer> q = new LinkedList<Integer>();
+		while (!q.isEmpty()) {
+			int curr = q.removeFirst();
+			if (curr<n) {
+				// search sb for gifts valued between b[curr]-d and b[curr] and add to queue
+				int low = Arrays.binarySearch(sb, new Item(b[curr]-d, 0));
+				if (low<0) low = -(low+1);
+				int hi = Arrays.binarySearch(sb, new Item(b[curr], 0));
 
-		for (int start = 0; start < n; start++) {
-			q = new LinkedList<Integer>();
-			q.add(start);
-			
-			boolean[] used = new boolean[2 * n];
-			long[] dist = new long[2 * n];
-			long minDist = Long.MAX_VALUE;
-			used[start] = true;
-			dist[start] = 1;
-			
-			while (!q.isEmpty()) {
-				int gift = q.removeFirst();
-				if ((gift < n && esort[gift].val == 0) || (gift >= n && bsort[gift].val == 0)) {
-					minDist = Math.min(minDist, dist[gift2]);
-				}
+				if (hi<0) hi = -(hi+1);
+				if (hi>=n) hi--;
+				if (sb[hi].val>b[curr]) hi--;
 
-				int min = 0, max = 0;
-				if (gift2 < n) {
-					max = bSearch(esort, esort[gift].val + d, 0, 2 * n);	
-					for (int i = min; i <= max; i++) {
-						int j = esort[i].idx;
-						if (i == max && esort[i].val > e[gift] + d) continue;
-						if (used[j]) continue;
-						dist[j] = dist[gift] + 1;
-						used[j] = true;
-						q.add(i);
-					}
-				} else {
-					max = bSearch(bsort, bsort[gift].val + d, 0, 2 * n);	
-					for (int i = min; i <= max; i++) {
-						
-						int j = bsort[i].idx;
-						if (i == max && bsort[i].val > b[gift] + d) continue;
-						if (used[j]) continue;
-						dist[j] = dist[gift] + 1;
-						used[j] = true;
-						q.add(i);
-					}
+				for (int i=low; i<=hi; i++){
+					if (dist[sb[i].idx]!=0) continue;
+					dist[sb[i].idx] = dist[curr]+1;
+					q.add(sb[i].idx);
 				}
-				
 			}
-			minDist = (minDist == Integer.MAX_VALUE ? -1 : minDist);
-			out.println(minDist);
+			else {
+				// search se for gifts valued between e[curr]-d and e[curr] and add to queue
+				int low = Arrays.binarySearch(se, new Item(e[curr] - d, 0));
+				if (low < 0) low = -(low+1);
+				int hi = Arrays.binarySearch(se, new Item(e[curr], 0));
+				if (hi < 0) hi = -(hi+1);
+				if (hi >= n) hi--;
+				if (se[hi].val>e[curr]) hi--;
+
+				for (int i=low; i<=hi; i++) {
+					if (dist[se[i].idx]!=0) continue;
+					dist[se[i].idx] = dist[curr] + 1;
+					q.add(se[i].idx);
+				}
+			}
+		}
+		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("piepie.out")));
+		for (int i=0; i<n; i++) {
+			if (dist[i]==0) out.println(-1);
+			else out.println(dist[i]);
 		}
 		out.close();
 	}
 
-	public static int bSearch(Stat[] arr, int num, int min, int max) {
-		int mid = 0;
-		while (min <= max){
-			mid = (min + max) / 2;
-			if (arr[mid].val < num) {
-				min = mid + 1;
-			} else if (arr[mid].val > num){
-				max = mid - 1;
-			} else {
-				return mid;
-			}
-		}
-		if (num > arr[mid].val) return mid + 1;
-		else return mid;
-	}
+    private static class Item implements Comparable<Item> {
+        public int val, idx;
+        public Item(int a, int b){
+            val = a;
+            idx = b;
+        }
+        public int compareTo(Item that){
+            return this.val - that.val;
+        }
+    }
 }
 
-class Stat implements Comparable<Stat> {
-	public int idx, val;
-
-	public Stat(int a, int b) {
-		idx = a;
-		val = b;
-	}
-
-	public int compareTo(Stat that) {
-		return this.val - that.val;
-	}
-}
