@@ -5,39 +5,52 @@ public class sleepy {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader("sleepy.in"));
 		int n = Integer.parseInt(br.readLine());
-		LinkedList<Integer> c = new LinkedList<Integer>();
+		int[] c = new int[n];
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		for (int i=0; i<n; i++) c.add(Integer.parseInt(st.nextToken()));
-		
+		for (int i=0; i<n; i++) c[i] = Integer.parseInt(st.nextToken());
 		br.close();
-		int i = n-1;
-		while (i > 0 && c.get(i-1) < c.get(i)) i--;
-		
+
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("sleepy.out")));
-		System.out.println(i);
-		while (i > 0) {
-			int j=bSearch(c, c.get(0), i, n-1);
-			System.out.print(j-1);
-			if (i > 1) System.out.print(" ");
-			int tmp = c.remove(0);
-			c.add(j-1, tmp);
-			System.out.println(c);
+		BIT bit = new BIT(n);
+		int i = n;
+		do {
 			i--;
+			bit.inc(c[i] - 1);
+		} while (i > 0 && c[i-1] < c[i]);
+		out.println(i);
+
+		for (int j=0; j<i; j++) {
+			int move = (i-j-1)+bit.sum(c[j]-1);
+			out.print(move);
+			if (j<i-1) out.print(" ");
+			bit.inc(c[j]-1);
 		}
+
 		out.close();
 	}
 
-	public static int bSearch(LinkedList<Integer> a, int num, int c, int d){
-		int x = c;
-		int y = d;
-		int mid = 0;
-		while (x <= y) {
-			mid = (x+y) / 2;
-			if (a.get(mid)>num) y = mid-1;
-			else if (a.get(mid)<num) x = mid+1;
-			else return mid;
-		}
-		if (a.get(mid) < num) return mid+1;
-		else return mid;
-	}
+	// Binary Indexed Tree
+    private static class BIT {
+        public int[] arr;
+        public BIT(int n) {
+            arr = new int[n+1];
+        }
+        public void inc(int i) {
+            i++;
+            while (i<arr.length){
+                arr[i]++;
+                i += i & -i;
+            }
+        }
+        public int sum(int i) {
+            i++;
+            int ret = 0;
+            while (i>0){
+                ret += arr[i];
+                i -= i & -i;
+            }
+            return ret;
+        }
+    }
 }
+

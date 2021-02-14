@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class spainting {
-	public static long MOD = 1000000007;
+	public static long MOD = 1_000_000_007;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader("spainting.in"));
@@ -11,7 +11,7 @@ public class spainting {
 		int m = Integer.parseInt(st.nextToken());
 		int k = Integer.parseInt(st.nextToken());
 		br.close();
-		
+
 		long[] dp = new long[n+1];
 		long[] ps = new long[n+1];
 		dp[0] = 1;

@@ -8,7 +8,7 @@ public class snowboots {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int n = Integer.parseInt(st.nextToken());
 		int b = Integer.parseInt(st.nextToken());
-		
+
 		int[] tiles = new int[n];
 		st = new StringTokenizer(br.readLine());
 		for (int i=0; i<n; i++) {
@@ -33,7 +33,7 @@ public class snowboots {
 			}
 			x: while (j < n) {
 				if (j == n-1) {
-					reachable[pairs[i].idx] = true; 
+					reachable[pairs[i].idx] = true;
 					if (pairs[i].depth < minDepth) {
 						minDepth = pairs[i].depth;
 						minStep = pairs[i].step;
@@ -49,26 +49,27 @@ public class snowboots {
 				}
 			}
 		}
-		for (int i = 0; i < b; i++) 
+		for (int i = 0; i < b; i++)
             out.println(reachable[i] ? 1 : 0);
-		
+
 		br.close();
 		out.close();
 	}
+
+    private static class Boots implements Comparable<Boots> {
+        public int depth, step, idx;
+
+        public Boots (int a, int b, int c) {
+            depth = a;
+            step = b;
+            idx = c;
+        }
+
+        public int compareTo(Boots that) {
+            int res = this.step - that.step;
+            if (res != 0) return res;
+            return this.depth - that.depth;
+        }
+    }
 }
 
-class Boots implements Comparable<Boots> {
-	public int depth, step, idx;
-
-	public Boots (int a, int b, int c) {
-		depth = a;
-		step = b;
-		idx = c;
-	}
-
-	public int compareTo(Boots that) {
-		int res = this.step - that.step;
-		if (res != 0) return res;
-		return this.depth - that.depth;
-	}
-}

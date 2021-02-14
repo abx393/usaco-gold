@@ -76,15 +76,16 @@ public class piepie2 {
 		}
 		out.close();
 	}
+
+    private static class item implements Comparable<item> {
+        public int val, idx;
+        public item(int a, int b){
+            val = a;
+            idx = b;
+        }
+        public int compareTo(item that){
+            return this.val - that.val;
+        }
+    }
 }
 
-class item implements Comparable<item> {
-	public int val, idx;
-	public item(int a, int b){
-		val = a;
-		idx = b;
-	}
-	public int compareTo(item that){
-		return this.val - that.val;
-	}
-}

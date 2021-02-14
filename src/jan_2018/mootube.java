@@ -16,13 +16,13 @@ public class mootube {
 
 		for (int i=0; i<n; i++) rel[i] = new TreeSet<Edge>();
 		for (int i=0; i<n; i++) adj[i] = new ArrayList<Edge>();
-		
-		for (int i=0; i<n-1; i++) { 
+
+		for (int i=0; i<n-1; i++) {
 			st = new StringTokenizer(br.readLine());
 			int a = Integer.parseInt(st.nextToken())-1;
 			int b = Integer.parseInt(st.nextToken())-1;
 			int c = Integer.parseInt(st.nextToken());
-			
+
 			rel[a].add(new Edge(b, c));
 			rel[b].add(new Edge(a, c));
 			adj[a].add(new Edge(b, c));
@@ -52,7 +52,7 @@ public class mootube {
 					visited[e.to] = true;
 				}
 			}
-		
+
 			int res = bSearch(rel[v], k);
 		}
 		out.close();
@@ -71,21 +71,22 @@ public class mootube {
 		}
 		return (nums[mid].w < val ? mid+1: mid);
 	}
+
+    private static class Edge implements Comparable<Edge> {
+        public int to, w;
+
+        public Edge (int a, int b){
+            to = a;
+            w = b;
+        }
+
+        public int compareTo(Edge that){
+            return this.w - that.w;
+        }
+
+        public String toString(){
+            return (to+1) + " " + w;
+        }
+    }
 }
 
-class Edge implements Comparable<Edge> {
-	public int to, w;
-
-	public Edge (int a, int b){
-		to = a;
-		w = b;
-	} 
-
-	public int compareTo(Edge that){
-		return this.w - that.w;
-	}
-
-	public String toString(){
-		return (to+1) + " " + w;
-	}
-}
