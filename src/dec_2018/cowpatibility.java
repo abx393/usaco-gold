@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.*;
-import java.util.Map.Entry;
 
 public class cowpatibility {
 	public static HashMap<ArrayList<Integer>, Long> freq;
@@ -18,7 +17,7 @@ public class cowpatibility {
 			}
 		}
 		br.close();
-		
+
 		freq = new HashMap<ArrayList<Integer>, Long>();
 		for (int i=0; i<arr.length; i++) {
 			int[] s = arr[i];
@@ -27,31 +26,33 @@ public class cowpatibility {
 			Arrays.sort(s);
 			add(s, 0);
 		}
-		
+
 		long count = 0;
 		for (ArrayList<Integer> a : freq.keySet()) {
 			long num = freq.get(a);
-			if (a.size()==1 || a.size()==3 || a.size()==5) {
-				count += (num * (num-1)) / 2;
-			}
-			else if (a.size()==2 || a.size()==4) {
-				count -= (num * (num-1) / 2);
-			}
+			if (a.size() <= 5) {
+                if (a.size() % 2 == 1) {
+                    count += (num * (num - 1)) / 2;
+                } else {
+                    count -= (num * (num - 1) / 2);
+                }
+            }
 		}
-		
+
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("cowpatibility.out")));
 		out.println((long) n * (long) (n-1) / 2 - count);
 		out.close();
 	}
-    
+
 	public static void add(int[] s, int x) {
 		if (x==5) {
-			for (ArrayList<Integer> b : list){
+			for (ArrayList<Integer> b : list) {
 				if (b.size()==0) continue;
 				if (freq.containsKey(b)){
 					freq.put(b, freq.get(b)+1);
-				}
-				else freq.put(b, 1L);
+				} else {
+                    freq.put(b, 1L);
+                }
 			}
 			return;
 		}
